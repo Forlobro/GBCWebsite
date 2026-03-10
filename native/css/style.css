@@ -198,6 +198,7 @@ ul {
    Navigation
    ----------------------------------------- */
 .navbar {
+    
     position: fixed;
     top: 0;
     left: 0;
@@ -208,14 +209,13 @@ ul {
     align-items: center;
     z-index: 1000;
     transition: all var(--transition-smooth);
-}
-
-.navbar.scrolled {
-    background: rgba(255, 255, 255, 0.95);
+    background-color: white;
+    
     backdrop-filter: blur(20px);
     padding: 0.75rem 5%;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
+
 
 .logo {
     display: flex;
@@ -239,7 +239,7 @@ ul {
 }
 
 .nav-links a {
-    color: var(--white);
+    color: black;
     font-weight: 500;
     font-size: 0.95rem;
     letter-spacing: 0.02em;
@@ -276,15 +276,13 @@ ul {
 
 .lang-toggle {
     display: flex;
-    background: rgba(255,255,255,0.1);
+    background: var(--gray-100);
     border-radius: 30px;
     padding: 4px;
     backdrop-filter: blur(10px);
 }
 
-.navbar.scrolled .lang-toggle {
-    background: var(--gray-100);
-}
+
 
 .lang-btn {
     padding: 0.4rem 1rem;
@@ -296,22 +294,23 @@ ul {
     font-weight: 600;
     color: rgba(255,255,255,0.7);
     transition: all var(--transition-normal);
+    color: var(--text-light)
 }
 
-.navbar.scrolled .lang-btn {
+/*.navbar.scrolled .lang-btn {
     color: var(--text-light);
-}
+}*/
 
 .lang-btn.active {
-    background: var(--white);
-    color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
     box-shadow: var(--shadow-md);
 }
 
-.navbar.scrolled .lang-btn.active {
+/*.navbar.scrolled .lang-btn.active {
     background: var(--primary);
     color: var(--white);
-}
+}*/
 
 .nav-cta {
     padding: 0.75rem 1.75rem;
@@ -902,8 +901,8 @@ ul {
 
 .org-staff {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
+    justify-content: space-around;
+    gap: 1rem;
     flex-wrap: wrap;
     max-width: 1100px;
     margin: 0 auto;
