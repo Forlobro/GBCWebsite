@@ -1,14 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useTranslation } from "../lib/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
-import { companies } from "../lib/companies";
-
-const featuredCompanies = companies.slice(0, 6);
+import { GbcCompanyWithPhotos } from "../lib/supabase";
 
 export default function CompaniesSection() {
   const { t } = useTranslation();
+  const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/companies")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setCompanies(data.slice(0, 6));
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <section className="py-36 bg-[#f8fafc]" id="companies">
@@ -24,72 +34,87 @@ export default function CompaniesSection() {
           <p className="text-text-light text-lg">{t("discover")}</p>
         </ScrollReveal>
 
-        {/* Filter Buttons */}
-        <ScrollReveal className="flex justify-center gap-3 flex-wrap mb-12">
-          {[
-            t("all"),
-            t("industrial"),
-            t("safetyEnvironment"),
-            t("beautyLifestyle"),
-            t("agriculture"),
-            t("fb"),
-          ].map((label, i) => (
-            <button
-              key={label}
-              className={`px-6 py-3 border-2 rounded-full text-[0.9rem] font-semibold cursor-pointer transition-all duration-300 ${
-                i === 0
-                  ? "bg-primary border-primary text-white"
-                  : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </ScrollReveal>
-
         {/* Company Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredCompanies.map((company) => (
-            <ScrollReveal key={company.id}>
-              <div className="bg-white rounded-[20px] p-8 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] border border-gray-100 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-gradient-to-r before:from-accent before:to-[#00a8b0] before:scale-x-0 before:transition-transform before:duration-400 hover:before:scale-x-100">
-                {/* Company Logo */}
-                <div className="w-20 h-20 bg-[#f9fafb] rounded-2xl flex items-center justify-center mb-6 font-display font-bold text-[0.75rem] text-primary text-center p-2">
-                  {company.name.split(" ")[0]}
-                </div>
-
-                <h4 className="text-lg font-bold text-text mb-2">
-                  {company.name}
-                </h4>
-
-                <span className="inline-block bg-accent/10 text-primary-light px-3.5 py-1.5 rounded-[20px] text-[0.75rem] font-semibold mb-4">
-                  {company.category}
-                </span>
-
-                <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6">
-                  {company.shortDesc}
-                </p>
-
-                <Link
-                  href={`/companies/${company.id}`}
-                  className="inline-flex items-center gap-2 text-primary font-semibold text-[0.9rem] transition-all duration-300 hover:gap-3"
-                >
-                  {t("viewDetails")} <i className="fas fa-arrow-right" />
-                </Link>
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-[20px] p-8 border border-gray-100 animate-pulse"
+              >
+                <div className="w-20 h-20 bg-gray-200 rounded-2xl mb-6" />
+                <div className="h-5 bg-gray-200 rounded mb-3 w-3/4" />
+                <div className="h-4 bg-gray-100 rounded mb-2 w-1/3" />
+                <div className="h-4 bg-gray-100 rounded mb-1 w-full" />
+                <div className="h-4 bg-gray-100 rounded w-4/5" />
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : companies.length === 0 ? (
+          <div className="text-center py-16 text-text-light">
+            <i className="fas fa-building text-4xl mb-4 opacity-30" />
+            <p>No companies available yet.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {companies.map((company) => (
+              <ScrollReveal key={company.id}>
+                <div className="bg-white rounded-[20px] p-8 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] border border-gray-100 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-gradient-to-r before:from-accent before:to-[#00a8b0] before:scale-x-0 before:transition-transform before:duration-400 hover:before:scale-x-100">
+                  {/* Logo / First Photo */}
+                  {company.gbc_companies_photos?.[0]?.photo_url ? (
+                    <div className="w-full h-40 rounded-2xl overflow-hidden mb-6">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={company.gbc_companies_photos[0].photo_url}
+                        alt={company.name ?? ""}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 bg-[#f9fafb] rounded-2xl flex items-center justify-center mb-6 font-display font-bold text-[0.75rem] text-primary text-center p-2">
+                      {(company.name ?? "?").split(" ")[0]}
+                    </div>
+                  )}
+
+                  <h4 className="text-lg font-bold text-text mb-2">
+                    {company.name}
+                  </h4>
+
+                  {company.category && (
+                    <span className="inline-block bg-accent/10 text-primary-light px-3.5 py-1.5 rounded-[20px] text-[0.75rem] font-semibold mb-4">
+                      {company.category}
+                    </span>
+                  )}
+
+                  {company.description && (
+                    <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 line-clamp-3">
+                      {company.description}
+                    </p>
+                  )}
+
+                  <Link
+                    href={`/companies/${company.id}`}
+                    className="inline-flex items-center gap-2 text-primary font-semibold text-[0.9rem] transition-all duration-300 hover:gap-3"
+                  >
+                    {t("viewDetails")} <i className="fas fa-arrow-right" />
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
 
         {/* View All Button */}
-        <div className="text-center mt-12">
-          <Link
-            href="/companies"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-primary !text-white rounded-full font-semibold text-base shadow-[0_4px_20px_rgba(15,40,71,0.3)] transition-all duration-400 hover:bg-primary-light hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(15,40,71,0.4)]"
-            style={{ color: '#ffffff', backgroundColor: '#0f2847' }}
-          >
-            {t("viewAllCompanies")} <i className="fas fa-arrow-right" />
-          </Link>
-        </div>
+        {!loading && companies.length > 0 && (
+          <div className="text-center mt-12">
+            <Link
+              href="/companies"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-full font-semibold text-base shadow-[0_4px_20px_rgba(15,40,71,0.3)] transition-all duration-400 hover:bg-primary-light hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(15,40,71,0.4)]"
+            >
+              <span className="text-white">{t("viewAllCompanies")}</span> <i className="fas fa-arrow-right text-white" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
