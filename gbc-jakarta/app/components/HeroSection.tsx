@@ -3,12 +3,27 @@
 import Link from "next/link";
 import { useTranslation } from "../lib/LanguageContext";
 
+const HIGHLIGHT_BY_LANG: Record<string, string> = {
+  en: "Korean Excellence",
+  id: "Keunggulan Korea",
+};
+
 export default function HeroSection() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+
+  const highlight = HIGHLIGHT_BY_LANG[language] ?? HIGHLIGHT_BY_LANG.en;
+  const titleParts = t("heroTitle").split(highlight);
 
   return (
     <section
-      className="min-h-screen bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative flex items-center overflow-hidden"
+      className="min-h-screen relative flex items-center overflow-hidden"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(15, 40, 71, 0.8), rgba(30, 65, 117, 0.8)), url('/images/gbc-hero.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
       id="home"
     >
       {/* Background Pattern */}
@@ -45,11 +60,11 @@ export default function HeroSection() {
               className="font-display text-4xl md:text-5xl lg:text-[4rem] font-extrabold leading-[1.1] mb-6 opacity-0"
               style={{ animation: "fadeInUp 0.8s ease 0.1s forwards" }}
             >
-              {t("heroTitle").split("Korean Excellence")[0]}
+              {titleParts[0]}
               <span className="bg-gradient-to-br from-accent to-[#00a8b0] bg-clip-text text-transparent">
-                Korean Excellence
+                {highlight}
               </span>
-              {t("heroTitle").split("Korean Excellence")[1] || " to Indonesia"}
+              {titleParts[1] ?? ""}
             </h1>
 
             {/* Description */}
@@ -67,7 +82,8 @@ export default function HeroSection() {
             >
               <Link
                 href="/#companies"
-                className="px-8 py-4 rounded-full font-semibold text-base inline-flex items-center gap-3 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] bg-white text-primary shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:-translate-y-[3px] hover:shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
+                className="px-8 py-4 rounded-full font-semibold text-base inline-flex items-center gap-3 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] bg-white !text-[#0f2847] shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:-translate-y-[3px] hover:shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
+              style={{ color: '#0f2847' }}
               >
                 <i className="fas fa-building" />
                 <span>{t("explore")}</span>

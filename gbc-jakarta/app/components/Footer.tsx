@@ -8,34 +8,34 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-primary-dark text-white pt-20 pb-8">
+    <footer className="bg-primary-dark text-white pt-16 pb-6">
       <div className="max-w-[1400px] mx-auto px-[5%]">
         {/* Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-16 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-[51px] mb-[51px]">
           {/* Brand */}
           <div>
             <Image
               src="/images/logo.jpg"
               alt="GBC Jakarta"
-              width={200}
-              height={50}
-              className="h-[50px] w-auto mb-6"
+              width={77}
+              height={19}
+              className="h-[19px] w-auto mb-[19px]"
             />
-            <p className="text-white/60 text-[0.95rem] leading-[1.8] max-w-[300px]">
+            <p className="text-white/60 text-[0.76rem] leading-[1.8] max-w-[240px]">
               {t("gyeonggi")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-base font-bold mb-6 text-white">
+            <h4 className="text-[0.8rem] font-bold mb-[19px] text-white">
               Quick Links
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               <li>
                 <Link
                   href="/#home"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("home")}
                 </Link>
@@ -43,7 +43,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#about"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("about")}
                 </Link>
@@ -51,7 +51,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#companies"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("companies")}
                 </Link>
@@ -59,7 +59,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#contact"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("contact")}
                 </Link>
@@ -69,12 +69,12 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-base font-bold mb-6 text-white">Services</h4>
-            <ul className="space-y-3">
+            <h4 className="text-[0.8rem] font-bold mb-[19px] text-white">Services</h4>
+            <ul className="space-y-2">
               <li>
                 <Link
                   href="#"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("marketResearch")}
                 </Link>
@@ -82,7 +82,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("businessMatching")}
                 </Link>
@@ -90,7 +90,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("tradePromotion")}
                 </Link>
@@ -98,7 +98,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("partnerships")}
                 </Link>
@@ -108,12 +108,12 @@ export default function Footer() {
 
           {/* Industries */}
           <div>
-            <h4 className="text-base font-bold mb-6 text-white">Industries</h4>
-            <ul className="space-y-3">
+            <h4 className="text-[0.8rem] font-bold mb-[19px] text-white">Industries</h4>
+            <ul className="space-y-2">
               <li>
                 <Link
                   href="/#home"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("home")}
                 </Link>
@@ -121,7 +121,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#about"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("aboutUs")}
                 </Link>
@@ -129,7 +129,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#companies"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("gmsCompanies")}
                 </Link>
@@ -137,7 +137,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#contact"
-                  className="text-white/60 text-[0.95rem] transition-colors duration-300 hover:text-accent"
+                  className="text-white/60 text-[0.76rem] transition-colors duration-300 hover:text-accent"
                 >
                   {t("contact")}
                 </Link>
@@ -147,25 +147,25 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/50 text-[0.9rem]">
+        <div className="border-t border-white/10 pt-[26px] flex flex-col md:flex-row justify-between items-center gap-3">
+          <p className="text-white/50 text-[0.72rem]">
             &copy; 2026 GBC Jakarta. All rights reserved.
           </p>
-          <div className="flex items-center gap-8">
-            <span className="text-white/50 text-[0.85rem]">Supported by:</span>
+          <div className="flex items-center gap-[26px]">
+            <span className="text-white/50 text-[0.68rem]">Supported by:</span>
             <Image
               src="/images/gbsa-logo.png"
               alt="GBSA"
-              width={120}
-              height={30}
-              className="h-[30px] w-auto opacity-70 transition-opacity duration-300 hover:opacity-100"
+              width={39}
+              height={10}
+              className="h-[10px] w-auto opacity-70 transition-opacity duration-300 hover:opacity-100"
             />
             <Image
               src="/images/gyeonggi-logo.png"
               alt="Gyeonggi-do"
-              width={120}
-              height={30}
-              className="h-[30px] w-auto opacity-70 transition-opacity duration-300 hover:opacity-100"
+              width={39}
+              height={10}
+              className="h-[10px] w-auto opacity-70 transition-opacity duration-300 hover:opacity-100"
             />
           </div>
         </div>

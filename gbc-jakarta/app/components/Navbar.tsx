@@ -28,9 +28,9 @@ export default function Navbar() {
         <Image
           src="/images/logo.jpg"
           alt="GBC Jakarta"
-          width={160}
-          height={48}
-          className="h-12 w-auto transition-transform duration-300 hover:scale-105"
+          width={61}
+          height={18}
+          className="h-[18px] w-auto transition-transform duration-300 hover:scale-105"
         />
       </Link>
 

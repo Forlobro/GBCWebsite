@@ -84,7 +84,8 @@ export default function CompaniesSection() {
         <div className="text-center mt-12">
           <Link
             href="/companies"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-full font-semibold text-base shadow-[0_4px_20px_rgba(15,40,71,0.3)] transition-all duration-400 hover:bg-primary-light hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(15,40,71,0.4)]"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary !text-white rounded-full font-semibold text-base shadow-[0_4px_20px_rgba(15,40,71,0.3)] transition-all duration-400 hover:bg-primary-light hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(15,40,71,0.4)]"
+            style={{ color: '#ffffff', backgroundColor: '#0f2847' }}
           >
             {t("viewAllCompanies")} <i className="fas fa-arrow-right" />
           </Link>
