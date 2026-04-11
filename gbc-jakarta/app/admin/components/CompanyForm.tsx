@@ -1,0 +1,156 @@
+"use client";
+
+import { useState, FormEvent } from "react";
+
+interface CompanyFormProps {
+  initialData?: {
+    name: string;
+    category: string;
+    description: string;
+  };
+  onSubmit: (data: {
+    name: string;
+    category: string;
+    description: string;
+  }) => Promise<void>;
+  submitLabel: string;
+  loading?: boolean;
+}
+
+const categories = [
+  "Industrial Equipment",
+  "Safety Equipment",
+  "Eco-Friendly",
+  "Lifestyle",
+  "Construction",
+  "Safety Tech",
+  "Industry",
+  "Crushing",
+  "Safety Technology",
+  "Eco-Friendly Technology",
+  "Industrial Safety",
+  "Animal Nutrition",
+  "Eco Fuel Technology",
+  "Healthcare Technology",
+  "Industrial Monitoring",
+  "Audio Technology",
+  "Beauty Products",
+  "Education Technology",
+  "Medical Beauty",
+  "Health Technology",
+  "Agriculture",
+  "Agriculture Technology",
+  "Eco Agriculture",
+  "Food Innovation",
+  "Food Products",
+  "Construction Technology",
+  "Industrial Pumps",
+  "Air Purification",
+  "Lifestyle Products",
+  "Gas Safety Technology",
+  "Packaging Equipment",
+  "Water Technology",
+  "Industrial Automation",
+  "Textile Technology",
+  "Industrial Sensors",
+];
+
+export default function CompanyForm({
+  initialData,
+  onSubmit,
+  submitLabel,
+  loading = false,
+}: CompanyFormProps) {
+  const [name, setName] = useState(initialData?.name || "");
+  const [category, setCategory] = useState(initialData?.category || "");
+  const [description, setDescription] = useState(
+    initialData?.description || ""
+  );
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await onSubmit({ name, category, description });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Company Name */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Company Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g. ROBOTECH ENG CO.,LTD."
+          required
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all"
+        />
+      </div>
+
+      {/* Category */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Category
+        </label>
+        <div className="relative">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all appearance-none cursor-pointer"
+          >
+            <option value="">Select category...</option>
+            {categories.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+          <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none" />
+        </div>
+        <p className="text-slate-500 text-xs mt-1.5">
+          Or type a custom category below
+        </p>
+        <input
+          type="text"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          placeholder="Custom category..."
+          className="w-full mt-2 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all"
+        />
+      </div>
+
+      {/* Description */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Description
+        </label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Describe the company, their products, and services..."
+          rows={6}
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all resize-y"
+        />
+      </div>
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={loading || !name}
+        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#00c2cb] to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#00c2cb]/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm"
+      >
+        {loading ? (
+          <>
+            <i className="fas fa-spinner fa-spin" /> Saving...
+          </>
+        ) : (
+          <>
+            <i className="fas fa-save" /> {submitLabel}
+          </>
+        )}
+      </button>
+    </form>
+  );
+}
