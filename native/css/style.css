@@ -333,7 +333,12 @@ ul {
    ----------------------------------------- */
 .hero {
     min-height: 100vh;
-    background: var(--gradient-primary);
+    background-image: 
+        linear-gradient(rgba(15, 40, 71, 0.8), rgba(30, 65, 117, 0.8)),
+        url('../assets/images/gbc-hero.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     display: flex;
     align-items: center;
