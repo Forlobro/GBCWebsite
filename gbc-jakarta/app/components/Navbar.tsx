@@ -41,6 +41,7 @@ export default function Navbar() {
           { href: "/#about", key: "about" as const },
           { href: "/#companies", key: "companies" as const },
           { href: "/#team", key: "team" as const },
+          { href: "/events", key: "events" as const },
           { href: "/#contact", key: "contact" as const },
         ].map((item) => (
           <li key={item.key}>

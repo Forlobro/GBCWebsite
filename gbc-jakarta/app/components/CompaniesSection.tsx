@@ -10,19 +10,70 @@ export default function CompaniesSection() {
   const { t } = useTranslation();
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("All");
 
   useEffect(() => {
     fetch("/api/companies")
       .then((r) => r.json())
       .then((data) => {
-        if (Array.isArray(data)) setCompanies(data.slice(0, 6));
+        if (Array.isArray(data)) setCompanies(data);
       })
       .finally(() => setLoading(false));
   }, []);
 
+  const categories = [
+    "All",
+    ...Array.from(new Set(companies.map((c) => c.category).filter(Boolean))),
+  ] as string[];
+
+  const filtered = (
+    activeFilter === "All"
+      ? companies
+      : companies.filter((c) => c.category === activeFilter)
+  ).slice(0, 6);
+
   return (
-    <section className="py-36 bg-[#f8fafc]" id="companies">
-      <div className="max-w-[1400px] mx-auto px-[5%]">
+    <section className="py-36 bg-[#f8fafc] relative overflow-hidden" id="companies">
+
+      {/* Wave divider top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+          <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="white"/>
+        </svg>
+      </div>
+
+      {/* Large blurred primary circle — top right */}
+      <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
+
+      {/* Bold circle outline — top right */}
+      <div className="absolute -top-24 -right-24 w-[450px] h-[450px] rounded-full border-[55px] border-primary/8 pointer-events-none" />
+
+      {/* Large blurred accent — bottom left */}
+      <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+
+      {/* Bold circle outline — bottom left */}
+      <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full border-[45px] border-accent/10 pointer-events-none" />
+
+      {/* Dot pattern — left strip */}
+      <div className="absolute inset-y-0 left-0 w-32 pointer-events-none" style={{
+        backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.2) 1.5px, transparent 1.5px)",
+        backgroundSize: "20px 20px",
+      }} />
+
+      {/* Floating symbols */}
+      <div className="absolute top-20 left-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">+</div>
+      <div className="absolute bottom-28 right-[6%] text-primary/10 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+      <div className="absolute top-1/2 right-[3%] text-accent/12 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+      <div className="absolute top-[30%] left-[3%] text-primary/8 text-5xl font-bold pointer-events-none select-none leading-none">◦</div>
+
+      {/* Decorative lines — right side */}
+      <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
+        {[80, 50, 100, 60, 90, 40].map((w, i) => (
+          <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+        ))}
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[700px] mx-auto mb-16">
           <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
@@ -33,6 +84,25 @@ export default function CompaniesSection() {
           </h2>
           <p className="text-text-light text-lg">{t("discover")}</p>
         </ScrollReveal>
+
+        {/* Filter Buttons */}
+        {!loading && categories.length > 1 && (
+          <ScrollReveal className="flex justify-center gap-2 flex-wrap mb-10">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
+                  activeFilter === cat
+                    ? "bg-primary border-primary text-white"
+                    : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
+                }`}
+              >
+                {cat === "All" ? t("all") : cat}
+              </button>
+            ))}
+          </ScrollReveal>
+        )}
 
         {/* Company Cards Grid */}
         {loading ? (
@@ -57,7 +127,7 @@ export default function CompaniesSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {companies.map((company) => (
+            {filtered.map((company) => (
               <ScrollReveal key={company.id}>
                 <div className="bg-white rounded-[20px] p-8 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] border border-gray-100 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-gradient-to-r before:from-accent before:to-[#00a8b0] before:scale-x-0 before:transition-transform before:duration-400 hover:before:scale-x-100">
                   {/* Logo / First Photo */}

@@ -20,14 +20,62 @@ export default function ContactSection() {
       className="py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden"
       id="contact"
     >
-      {/* Background */}
+      {/* Wave divider top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+          <path d="M0,40 C360,0 1080,70 1440,20 L1440,0 L0,0 Z" fill="white"/>
+        </svg>
+      </div>
+
+      {/* Background radial blobs */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
             "radial-gradient(circle at 10% 90%, rgba(0, 194, 203, 0.15) 0%, transparent 40%), radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.05) 0%, transparent 40%)",
         }}
       />
+
+      {/* Grid dot pattern */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.1) 1.5px, transparent 1.5px)",
+        backgroundSize: "28px 28px",
+      }} />
+
+      {/* Large blurred accent — bottom right */}
+      <div className="absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full bg-accent/15 blur-2xl pointer-events-none" />
+
+      {/* Bold circle outline — bottom right */}
+      <div className="absolute -bottom-28 -right-28 w-[550px] h-[550px] rounded-full border-[60px] border-white/8 pointer-events-none" />
+
+      {/* Second circle outline — bottom right */}
+      <div className="absolute -bottom-10 -right-10 w-[300px] h-[300px] rounded-full border-[35px] border-accent/12 pointer-events-none" />
+
+      {/* Large blurred — top left */}
+      <div className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-white/5 blur-2xl pointer-events-none" />
+
+      {/* Bold circle outline — top left */}
+      <div className="absolute -top-20 -left-20 w-[380px] h-[380px] rounded-full border-[50px] border-accent/12 pointer-events-none" />
+
+      {/* Floating symbols */}
+      <div className="absolute top-16 right-[12%] text-white/10 text-9xl font-bold pointer-events-none select-none leading-none">+</div>
+      <div className="absolute bottom-16 left-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">×</div>
+      <div className="absolute top-1/2 left-[2%] text-white/8 text-6xl pointer-events-none select-none leading-none">◦</div>
+      <div className="absolute top-[25%] right-[4%] text-accent/12 text-5xl font-bold pointer-events-none select-none leading-none">+</div>
+
+      {/* Decorative lines — left */}
+      <div className="absolute left-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
+        {[80, 120, 60, 100, 50, 90, 70].map((w, i) => (
+          <div key={i} className="h-[3px] bg-white/12 rounded-full" style={{ width: `${w}px` }} />
+        ))}
+      </div>
+
+      {/* Decorative lines — right */}
+      <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
+        {[70, 100, 50, 85, 45, 75].map((w, i) => (
+          <div key={i} className="h-[3px] bg-accent/20 rounded-full ml-auto" style={{ width: `${w}px` }} />
+        ))}
+      </div>
 
       <div className="max-w-[1400px] mx-auto px-[5%]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-[1]">

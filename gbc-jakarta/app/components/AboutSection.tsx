@@ -31,8 +31,42 @@ export default function AboutSection() {
   ];
 
   return (
-    <section className="py-36 bg-white relative" id="about">
-      <div className="max-w-[1400px] mx-auto px-[5%]">
+    <section className="py-36 bg-white relative overflow-hidden" id="about">
+
+      {/* Dot pattern */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
+        backgroundSize: "26px 26px",
+      }} />
+
+      {/* Large circle outline — top left */}
+      <div className="absolute -top-40 -left-40 w-[650px] h-[650px] rounded-full border-[60px] border-accent/10 pointer-events-none" />
+
+      {/* Second circle outline inside — top left */}
+      <div className="absolute -top-16 -left-16 w-[350px] h-[350px] rounded-full border-[30px] border-primary/8 pointer-events-none" />
+
+      {/* Large blurred cyan blob — bottom right */}
+      <div className="absolute -bottom-32 -right-32 w-[550px] h-[550px] rounded-full bg-accent/10 blur-2xl pointer-events-none" />
+
+      {/* Bold circle outline — bottom right */}
+      <div className="absolute -bottom-20 -right-20 w-[380px] h-[380px] rounded-full border-[50px] border-accent/8 pointer-events-none" />
+
+      {/* Blurred primary blob — top right */}
+      <div className="absolute -top-16 right-[15%] w-[300px] h-[300px] rounded-full bg-primary/8 blur-3xl pointer-events-none" />
+
+      {/* Floating symbols */}
+      <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">+</div>
+      <div className="absolute bottom-24 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">×</div>
+      <div className="absolute top-1/2 left-[2%] text-accent/12 text-5xl font-bold pointer-events-none select-none leading-none">◦</div>
+
+      {/* Decorative lines — left side */}
+      <div className="absolute left-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
+        {[70, 110, 50, 90, 60, 100].map((w, i) => (
+          <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+        ))}
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           {/* Content */}
           <ScrollReveal>

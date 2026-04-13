@@ -15,11 +15,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo-panjang.png"
               alt="GBC Jakarta"
-              width={77}
-              height={19}
-              className="h-[19px] w-auto mb-[19px]"
+              width={160}
+              height={60}
+              className="h-[60px] w-auto mb-[19px] rounded-xl"
             />
             <p className="text-white/60 text-[0.76rem] leading-[1.8] max-w-[240px]">
               {t("gyeonggi")}
